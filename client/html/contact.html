@@ -1,0 +1,28 @@
+<html ng-app="pizzeria">
+<head>
+<meta charset="utf-8">
+<title>Kontakt</title>
+<link rel="stylesheet" type="text/css" href="css/all.css">
+<script
+	src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.min.js"></script>
+<script src="script.js"></script>
+</head>
+<body ng-controller="ControllerContact">
+	<div data-ng-init="processContact()">
+		<table style="width: 60%; margin: auto">
+			<tr>
+				<th>Miasto</th>
+				<th>Ulica</th>
+				<th>Telefon</th>
+				<th>Kiedy otwarte</th>
+			</tr>
+			<tr>
+				<td>{{response.address.city}}</td>
+				<td>{{response.address.street}}</td>
+				<td>{{response.phone}}</td>
+				<td>{{response.hours}}</td>
+			</tr>
+		</table>
+	</div>
+</body>
+</html>

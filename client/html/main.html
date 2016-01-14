@@ -1,0 +1,61 @@
+<html ng-app="pizzeria">
+<head>
+<meta charset="utf-8">
+<title>Pizzeria</title>
+<link rel="stylesheet" type="text/css" href="css/all.css">
+<script
+	src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.min.js"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.5/angular-route.min.js"></script>
+<script src="script.js"></script>
+</head>
+<body ng-controller="ControllerMain">
+	<div class="main">
+		<div class="menu" data-ng-init="getMenu()">
+			<table id="menu">
+				<tr id="firstTd">
+					<th>L.P</th>
+					<th>Pizza</th>
+					<th>Skład</th>
+					<th>Cena</th>
+					<th>Ilość</th>
+					<th>Dodaj do koszyka</th>
+				</tr>
+				<tr class="otherTd" ng-repeat="pizza in response">
+					<td class="menuTable" id="pizzaId">{{ pizza.id }}</td>
+					<td class="menuTable">{{ pizza.name}}</td>
+					<td class="menuTable">{{pizza.ingredients.toString()}}</td>
+					<td class="menuTable">{{ pizza.price.toFixed(2)}}</td>
+					<td class="menuTable"><input type="text" value="0" min="0"
+						max="20" class="menuInput" id="{{pizza}}" name="quantity"
+						ng-model="pizza.quantity" /></td>
+					<td class="menuTable" id="addBtn"><img
+						ng-src="{{basketImage}}" class="addBtn"
+						ng-click="addToBasket(pizza)" /></td>
+				</tr>
+			</table>
+		</div>
+		<div class="basket">
+			<span><b>Dodane do koszyka:</b></span>
+			<table id="basket">
+				<tr>
+					<th>Pizza</th>
+					<th>Ilość</th>
+					<th>Cena</th>
+					<th>Usuń z koszyka</th>
+				</tr>
+				<tr ng-repeat="basket in orders">
+					<td>{{basket.name}}</td>
+					<td>{{basket.quantity}}</td>
+					<td>{{basket.price.toFixed(2)}}</td>
+					<td><img ng-src="{{deleteImage}}" class="delete"
+						ng-click="deleteFromBasket(basket)" /></td>
+				</tr>
+			</table>
+		</div>
+		<div class="orderBtn">
+			<span><b> Razem: {{total()}} zł </b></span> Kontynuuj: <img ng-src="{{dollar}}" ng-click="confirm()" />
+		</div>
+	</div>
+</body>
+</html>

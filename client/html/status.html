@@ -1,0 +1,41 @@
+<html ng-app="pizzeria">
+<head>
+<meta charset="utf-8">
+<title>Status</title>
+<link rel="stylesheet" type="text/css" href="css/all.css">
+<script
+	src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.min.js"></script>
+<script src="script.js"></script>
+</head>
+<body ng-controller="ControllerStatus">
+    <div data-ng-init="processStatus()" class="main">
+        <b>Numer zamówienia: {{orderId}} </b>
+        <table>
+                <tr>
+                    <th>Nr</th>
+                    <th>Pizza</th>
+                    <th>Składniki</th>
+                    <th>Cena</th>
+                    <th>Ilość</th>
+                </tr>
+                <tr ng-repeat="pizza in response.order">
+                    <td class="menu" id="pizzaId">  {{ pizza.pizza.id }} </td>
+                    <td class="menu"> {{ pizza.pizza.name}} </td>
+                    <td class="menu">{{pizza.pizza.ingredients.toString()}}</td>
+                    <td class="menu"> {{ pizza.pizza.price}} </td>
+                    <td class="menu"> {{ pizza.quantity}} </td>
+                </tr>
+            </table>
+        <table id="statusDate">
+            <tr>
+                <th>Odebrano zamówienie:</th>
+                <th>Dostarczenie:</th>
+            </tr>
+            <tr>
+                    <td>{{ response.ordered | date:'dd-MM-yyyy HH:mm'}}</td>
+                    <td>{{ response.estimated | date:'dd-MM-yyyy HH:mm'}}</td>
+            </tr>
+        </table> 
+        </div>
+</body>
+</html>

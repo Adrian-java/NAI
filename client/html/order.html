@@ -1,0 +1,39 @@
+<html class="active" ng-app="pizzeria">
+<head>
+<meta charset="utf-8">
+<title>Order</title>
+<link rel="stylesheet" type="text/css" href="css/all.css">
+<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.min.js"></script>
+<script src="https://code.angularjs.org/1.4.8/angular-messages.min.js"></script>
+<script src="script.js"></script>
+</head>
+<body ng-controller="ControllerOrder">
+	<div class="orderForm">
+		<form name="myForm">
+				<label> Numer telefonu: </label> <input type="text" name="number"
+					placeholder="Podaj nr telefonu" ng-model="number" />
+				<label> Ulica: </label> <input type="text" placeholder="Podaj adres"
+					name="street" ng-model="street">
+				<button ng-click="sendOrder()">Zamów</button>		
+		</form>
+	</div>
+    
+    <div class="orderSummary">
+		<table id="summary">
+			<tr>
+				<th>Nazwa</th>
+				<th>Ilość</th>
+				<th>Cena</th>
+			</tr>
+			<tr ng-repeat="order in orders">
+				<td>{{order.name}}</td>
+				<td>{{order.quantity}}</td>
+				<td>{{order.price}}</td>
+			</tr>
+			<tr>
+				<td><b>Razem {{total()}} zł</b></td>
+			</tr>
+		</table>
+	</div>
+</body>
+</html>
