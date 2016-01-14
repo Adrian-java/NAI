@@ -19,7 +19,7 @@
                     <th>Ilość</th>
                 </tr>
                 <tr ng-repeat="pizza in response.order">
-                    <td class="menu" id="pizzaId">  {{ pizza.pizza.id }} </td>
+                    <td class="menu">  {{ pizza.pizza.id }} </td>
                     <td class="menu"> {{ pizza.pizza.name}} </td>
                     <td class="menu">{{pizza.pizza.ingredients.toString()}}</td>
                     <td class="menu"> {{ pizza.pizza.price}} </td>

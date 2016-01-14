@@ -26,8 +26,8 @@
 					<td class="menuTable">{{ pizza.name}}</td>
 					<td class="menuTable">{{pizza.ingredients.toString()}}</td>
 					<td class="menuTable">{{ pizza.price.toFixed(2)}}</td>
-					<td class="menuTable"><input type="text" value="0" min="0"
-						max="20" class="menuInput" id="{{pizza}}" name="quantity"
+					<td class="menuTable"><input type="number" value="0" min="0"
+						max="15" class="menuInput" id="{{pizza}}" name="quantity"
 						ng-model="pizza.quantity" /></td>
 					<td class="menuTable" id="addBtn"><img
 						ng-src="{{basketImage}}" class="addBtn"
