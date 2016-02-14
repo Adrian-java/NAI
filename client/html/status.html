@@ -22,7 +22,7 @@
                     <td class="menu">  {{ pizza.pizza.id }} </td>
                     <td class="menu"> {{ pizza.pizza.name}} </td>
                     <td class="menu">{{pizza.pizza.ingredients.toString()}}</td>
-                    <td class="menu"> {{ pizza.pizza.price}} </td>
+                    <td class="menu"> {{ pizza.pizza.price.toFixed(2)}} </td>
                     <td class="menu"> {{ pizza.quantity}} </td>
                 </tr>
             </table>
@@ -34,8 +34,22 @@
             <tr>
                     <td>{{ response.ordered | date:'dd-MM-yyyy HH:mm'}}</td>
                     <td>{{ response.estimated | date:'dd-MM-yyyy HH:mm'}}</td>
-            </tr>
+            </tr>          
         </table> 
+         <table>
+                <tr>
+                    <th>Nazwa</th>
+                    <th>Cena</th>
+                </tr>
+                <tr ng-repeat="e in orderedExtras">
+                    <td>{{e.label}} </td>
+                    <td>{{e.price.toFixed(2)}} </td>
+                </tr>
+                <tr>
+				    <td><b>Razem {{total.toFixed(2)}} zł</b></td>
+			    </tr> 
+            </table>
+        <div id="socket"></div>
         </div>
 </body>
 </html>

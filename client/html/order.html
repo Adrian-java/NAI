@@ -14,6 +14,7 @@
 					placeholder="Podaj nr telefonu" ng-model="number" />
 				<label> Ulica: </label> <input type="text" placeholder="Podaj adres"
 					name="street" ng-model="street">
+                <button ng-click="openExtraPopup()">Dodaj dodatki</button>
 				<button ng-click="sendOrder()">Zamów</button>		
 		</form>
 	</div>
@@ -28,12 +29,25 @@
 			<tr ng-repeat="order in orders">
 				<td>{{order.name}}</td>
 				<td>{{order.quantity}}</td>
-				<td>{{order.price}}</td>
+				<td>{{order.price.toFixed(2)}}</td>
 			</tr>
-			<tr>
-				<td><b>Razem {{total()}} zł</b></td>
-			</tr>
+			
 		</table>
+        
+        <table id="extrasSummary">
+                    <tr>
+                        <th>Nazwa</th>
+                        <th>Cena</th>
+                    </tr>
+                    <tr ng-repeat="extra in orderedExtras">
+                        <td> {{extra.label}} </td>
+                        <td>  {{extra.price.toFixed(2)}}  </td>
+                    </tr>
+                    <tr>
+				        <td><b>Razem {{total.toFixed(2)}} zł</b></td>
+			         </tr>  
+                </table>
+        
 	</div>
 </body>
 </html>

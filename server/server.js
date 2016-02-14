@@ -16,7 +16,7 @@ var express = require('express'),
     bodyParser = require('body-parser'),
     _ = require('lodash'),
     data = {
-        menu: require('./data/menu'),
+        menu: require('./menu'),
         ingredients: require('./data/ingredients'),
         extras: require('./data/extras')
     };
@@ -79,25 +79,18 @@ app.get('/extras', function (req, res) {
  * @param   {object} order Requests body
  * @returns {boolean}      Is order valid
  */
-function checkIsOrderValid(reqData) {
-    var isOrderAnArray = reqData.order instanceof Array,
-        areOrderItemsValid = isListValid(reqData.order, data.menu),
-        areExtrasAnArray = reqData.extras instanceof Array,
-        areExtrasValid = isListValid(reqData.extras, data.extras),
-        isOrderInfoAnObject = reqData.orderInfo instanceof Object;
-
-    function isListValid (listToCheck, entities) {
-        return _.every(listToCheck, function (position) {
+function checkIsOrderValid(order) {
+    var isArray = order instanceof Array,
+        areItemsValid = _.every(order, function (position) {
             var isQuantityValid = _.isNumber(position.quantity) && position.quantity > 0,
-                isValidEntity = _.isNumber(position.id) && !_.isEmpty(_.find(entities, {
+                isValidPizza = _.isNumber(position.id) && !_.isEmpty(_.find(data.menu, {
                     id: position.id
                 }));
-
-            return isQuantityValid && isValidEntity;
+            return isQuantityValid && isValidPizza;
         });
-    }
 
-    return isOrderAnArray & areOrderItemsValid & areExtrasAnArray & areExtrasValid & isOrderInfoAnObject;
+    return isArray && areItemsValid;
+    
 }
 
 /**
@@ -121,18 +114,15 @@ app.post('/order', function (req, res) {
             var now = Date.now();
 
             orders[i] = {
-                order: {
-                    order: req.body.order.map(function (position) {
-                        return {
-                            pizza: {
-                                id: position.id,
-                                extraIngredients: position.extraIngredients
-                            },
-                            quantity: position.quantity
-                        };
-                    }),
-                    extras: req.body.extras
-                },
+                order: req.body.map(function (position) {
+                    return {
+                        pizza: _.find(data.menu, {
+                            id: position.id
+                        }),
+                        quantity: position.quantity,
+                        extras: position.extras
+                    };
+                }),
                 orderInfo: req.body.orderInfo,
                 ordered: new Date(now),
                 estimated: new Date(now + _.random(30, 120) * 10000),
@@ -195,6 +185,7 @@ wsServer.on('request', function(request) {
     var connection = request.accept(null, request.origin);
     var index = wsConnections.push(connection);
 
+    
     console.log('WebSocket Client connected on ' + new Date());
 
     connection.on('close', function(con) {

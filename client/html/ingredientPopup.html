@@ -1,0 +1,51 @@
+<div data-ng-init="getPizzaIngredient()"> 
+    <table>
+        <th>Nazwa</th> 
+        <th>Cena</th> 
+        <th></th> 
+        <tr ng-repeat="i in ingredients">
+            <td> {{i.label}}  </td>
+            <td> {{i.price.toFixed(2)}} </td>
+            <td><img ng-src="{{basketImage}}" class="addBtn"ng-click="addPizzaIngredient(i)" /> </td>
+        </tr>
+    </table>
+</div>
+<div>
+    <table> 
+    <tr> 
+        <th>Nazwa</th> 
+        <th>Ilość</th> 
+        <th>Cena</th> 
+    </tr> 
+    <tr> 
+        <td>{{lastAddedPosition.name}}</td>    
+        <td>{{lastAddedPosition.quantity}}</td>
+        <td>{{lastAddedPosition.price.toFixed(2)}}</td>
+    </tr> 
+    </table>
+    <div >
+        <p>Podstawowe:</p>
+        <table>
+            <th>Nazwa</th>
+            <th></th>
+            <tr ng-repeat="i in lastAddedPosition.ingredients">
+                <td>{{i}}</td> 
+                <td><img ng-src="{{deleteImage}}" class="delete" ng-click="deletePizzaIngredient(i)" /></td>
+            </tr>
+        </table>
+    </div>
+    <div>
+        <p>Dodatkowe:</p>
+        <table>
+            <th>Nazwa</th>
+            <th>Cena</th>
+            <th></th>
+            <tr ng-repeat="e in extraIngredients">
+                <td>{{e.label}}</td> 
+                <td>{{e.price.toFixed(2)}}</td>
+                <td><img ng-src="{{deleteImage}}" class="delete" ng-click="deletePizzaExtraIngredient(e)" /></td>
+            </tr>
+        </table>
+    </div>
+    <button ng-click="closeThisDialog('Ok')">Ok</button>
+</div>

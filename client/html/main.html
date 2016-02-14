@@ -21,7 +21,7 @@
 					<th>Ilość</th>
 					<th>Dodaj do koszyka</th>
 				</tr>
-				<tr class="otherTd" ng-repeat="pizza in response">
+				<tr class="otherTd" ng-repeat="pizza in menuRes">
 					<td class="menuTable" id="pizzaId">{{ pizza.id }}</td>
 					<td class="menuTable">{{ pizza.name}}</td>
 					<td class="menuTable">{{pizza.ingredients.toString()}}</td>
@@ -54,7 +54,7 @@
 			</table>
 		</div>
 		<div class="orderBtn">
-			<span><b> Razem: {{total()}} zł </b></span> Kontynuuj: <img ng-src="{{dollar}}" ng-click="confirm()" />
+			<span><b> Razem: {{total().toFixed(2)}} zł </b></span> Kontynuuj: <img ng-src="{{dollar}}" ng-click="confirm()" />
 		</div>
 	</div>
 </body>
